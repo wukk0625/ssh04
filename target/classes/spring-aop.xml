@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 配置切面 -->
+	<aop:config>
+		<!-- 配置切入点 * org.ssh.service.*+.*(..) *：表示方法的作用域，*表示所有 org.ssh.service.*：表示org.ssh.service下的任何包 
+			org.ssh.service.*+：表示org.ssh.service下的任何包及其子包 *(..)：*表示任何方法，(..)表示方法的任何参数 -->
+		<aop:pointcut id="pointcut"
+			expression="execution(* org.ssh.*.service.*+.*(..))" />
+		<!-- 适配切入点和事务增强 -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut" />
+	</aop:config>
+</beans>
